@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title></title>
+
+</head>
+<body>
+<div id="circle"></div>
+<div id="buttons">
+<input type="button" id="start_button" value="start">
+<input type="button" id="stop_button"  value="stop">
+</div>
+<script src="http://www.html5canvastutorials.com/libraries/kinetic-v4.3.0-beta2.js"></script>
+
+<script defer="defer">
+var stage=new Kinetic.Stage({
+      container: 'circle',
+    width: 600,
+    height: 490
+});
+
+ var layer = new Kinetic.Layer();
+
+var circle=new Kinetic.Circle({
+     x: stage.getWidth()/2,
+     y: stage.getHeight()/2,
+     radius: 50,
+     fill: 'blue',
+     stroke: 'black',
+     strokeWidth: 2
+   });
+
+layer.add(circle);
+
+stage.add(layer);
+
+var amplitude=200;
+var period= 1800;
+
+var center_Y=stage.getHeight()/2;
+var center_X=stage.getWidth()/2;
+var animate=new Kinetic.Animation(function(frame) {
+
+circle.setY(amplitude*Math.sin(frame.time*2*Math.PI/period)+center_Y);
+},layer);
+
+var animate_x=new Kinetic.Animation(function(frame) {
+
+circle.setX(amplitude*Math.cos(frame.time*2*Math.PI/period)+center_X);
+},layer);
+
+document.getElementById('start_button').addEventListener('click', function() {
+
+animate.start();
+animate_x.start();
+
+}, false);
+document.getElementById('stop_button').addEventListener('click', function(){
+animate.stop();
+animate_x.stop();
+}, false);
+
+</script>
+</body>
+</html>
